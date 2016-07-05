@@ -1,0 +1,24 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:new_manufacturer) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t(:back_to_manufacturers_list), spree.admin_manufacturers_path, :icon => 'arrow-left' %>
+  </li>
+<% end %>
+
+<div data-hook="admin_manufacturer_new_form_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @manufacturer } %>
+</div>
+
+<div data-hook="admin_manufacturer_new_form">
+  <% @manufacturer.country = Spree::Country.default %>
+  <%= form_for [:admin, @manufacturer], url: admin_manufacturers_url, method: :post do |f| %>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+
+    <div data-hook="admin_manufacturer_new_form_buttons">
+      <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+    </div>
+  <% end %>
+</div>

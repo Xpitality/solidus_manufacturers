@@ -1,0 +1,12 @@
+it:
+  spree:
+    admin:
+      tab:
+        manufacturers: Manufacturers
+    api:
+      resource_not_found: Resource not found
+    back_to_manufacturers_list: back to manufacturers
+    editing_manufacturer: Edit manufacturer
+    listing_manufacturers: Manufacturers
+    manufacturer_details: Manufacturer details
+    new_manufacturer: New Manufacturer

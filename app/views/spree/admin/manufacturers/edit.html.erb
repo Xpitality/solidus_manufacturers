@@ -1,0 +1,25 @@
+<% content_for :page_title do %>
+  <%= link_to "#{Spree.t(:editing_manufacturer)} #{@manufacturer.name}", edit_admin_manufacturer_url(@manufacturer) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li><%= button_link_to Spree.t(:back_to_manufacturers_list), spree.admin_manufacturers_path, :icon => 'arrow-left' %></li>
+  <% if can?(:create, Spree::Manufacturer) %>
+    <li id="new_manufacturer_link">
+      <%= button_link_to Spree.t(:new_manufacturer), new_object_url, { :icon => 'plus', :id => 'admin_new_manufacturer' } %>
+    </li>
+  <% end %>
+<% end %>
+
+<%= render partial: 'spree/admin/manufacturers/manufacturer_tabs', locals: { current: 'Manufacturer Details' } %>
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @manufacturer } %>
+
+<div data-hook="admin_manufacturer_new_form">
+  <%= form_for [:admin, @manufacturer], url: admin_manufacturer_url(@manufacturer), method: :put do |f| %>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+
+    <div data-hook="admin_manufacturer_new_form_buttons">
+      <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+    </div>
+  <% end %>
+</div>

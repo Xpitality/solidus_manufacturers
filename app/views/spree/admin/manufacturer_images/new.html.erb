@@ -1,0 +1,13 @@
+<% @manufacturer_image.viewable_id = @manufacturer.id %>
+<%= form_for [:admin, @manufacturer_image], :html => { :multipart => true } do |f| %>
+  <fieldset data-hook="new_image">
+    <legend align="center"><%= Spree.t(:new_image) %></legend>
+
+      <%= render :partial => 'form', :locals => { :f => f } %>
+    
+      <div class="form-buttons filter-actions actions" data-hook="buttons">
+        <%= button Spree.t('actions.update'), 'refresh' %>
+        <%= link_to_with_icon 'remove', Spree.t('actions.cancel'), admin_manufacturer_images_url(@manufacturer), :id => 'cancel_link', :class => 'button' %>
+      </div>
+  </fieldset>
+<% end %>

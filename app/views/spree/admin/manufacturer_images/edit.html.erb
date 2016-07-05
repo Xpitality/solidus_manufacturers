@@ -1,0 +1,25 @@
+<%= render :partial => 'spree/admin/manufacturers/manufacturer_tabs', :locals => { :current => 'Images' } %>
+
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @manufacturer_image } %>
+
+<% content_for :page_actions do %>
+  <li><%= button_link_to Spree.t(:back_to_images_list), admin_manufacturer_images_url(@manufacturer), :icon => 'arrow-left' %></li>
+<% end %>
+
+<%= form_for [:admin, @manufacturer, @manufacturer_image], url: admin_manufacturer_image_path(@manufacturer, @manufacturer_image), :html => { :multipart => true } do |f| %>
+  <fieldset data-hook="edit_image">
+    <legend align="center"><%= @manufacturer_image.attachment_file_name%></legend>
+    <div data-hook="thumbnail" class="field alpha three columns align-center">
+      <%= f.label Spree.t(:thumbnail) %><br>
+      <%= link_to image_tag(@manufacturer_image.attachment.url(:small)), @manufacturer_image.attachment.url(:manufacturer) %>
+    </div>
+    <div class="nine columns omega">
+      <%= render :partial => 'form', :locals => { :f => f } %>
+    </div>
+    <div class="clear"></div>
+    <div class="form-buttons filter-actions actions" data-hook="buttons">
+      <%= button Spree.t('actions.update'), 'refresh' %>
+      <%= link_to Spree.t('actions.cancel'), admin_manufacturer_images_url(@manufacturer), :id => 'cancel_link', :class => 'button remove' %>
+    </div>
+  </fieldset>
+<% end %>

@@ -1,0 +1,6 @@
+require 'sass/rails'
+require 'solidus_core'
+require 'solidus_manufacturers/engine'
+require 'solidus_manufacturers/version'
+require 'solidus_manufacturers/utils'
+require 'deface'

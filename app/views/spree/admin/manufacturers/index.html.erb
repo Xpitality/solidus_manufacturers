@@ -1,0 +1,59 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:listing_manufacturers) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <% if can?(:admin, Spree::Manufacturer) && can?(:create, Spree::Manufacturer) %>
+    <li>
+      <%= button_link_to Spree.t(:new_manufacturer), new_admin_manufacturer_url, :icon => 'plus', :id => 'admin_new_manufacturer_link' %>
+    </li>
+  <% end %>
+<% end %>
+
+<table class="index" id="listing_manufacturers" data-hook>
+  <colgroup>
+    <col style="width: 85%">
+    <col style="width: 15%">
+  </colgroup>
+  <thead>
+  <tr data-hook="admin_manufacturers_index_headers">
+    <th><%= sort_link @search,:name, Spree::Manufacturer.model_name.human, {}, {:title => 'manufacturers_name'} %></th>
+    <th data-hook="admin_manufacturers_index_header_actions" class="actions"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @manufacturers.each do |manufacturer|%>
+    <tr id="<%= spree_dom_id manufacturer %>" data-hook="admin_manufacturers_index_rows" class="<%= cycle('odd', 'even')%>">
+      <td class='manufacturer_name'><%=link_to manufacturer.name, edit_admin_manufacturer_url(manufacturer) %></td>
+      <td data-hook="admin_manufacturers_index_row_actions" class="actions">
+        <% if can?(:edit, manufacturer) %>
+          <%= link_to_edit manufacturer, :no_text => true %>
+        <% end %>
+        <% if can?(:destroy, manufacturer) %>
+          <%= link_to_delete manufacturer, :no_text => true %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @manufacturers, theme: "solidus_admin" %>
+
+<% content_for :sidebar_title do %>
+  <%= Spree.t(:search) %>
+<% end %>
+
+<% content_for :sidebar do %>
+  <div class="box align-center" data-hook="admin_manufacturers_index_search">
+    <%= search_form_for [:admin, @search], url: admin_manufacturers_url do |f| %>
+      <div class="field">
+        <%= f.label :name_cont, Spree.t(:name) %> <br>
+        <%= f.text_field :name_cont, :class => 'fullwidth' %>
+      </div>
+      <div data-hook="admin_manufacturers_index_search_buttons">
+        <%= button Spree.t(:search), 'search' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

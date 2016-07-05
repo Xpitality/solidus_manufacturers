@@ -1,0 +1,7 @@
+<div data-hook="admin_product_form_manufacturer" class="alpha omega four columns">
+  <%= f.field_container :manufacturer do %>
+    <%= f.label :manufacturer_id, Spree::Manufacturer.model_name.human %>
+    <%= f.collection_select(:manufacturer_id, Spree::Manufacturer.all, :id, :name, { :include_blank => Spree.t('match_choices.none') }, { :class => 'select2' }) %>
+    <%= f.error_message_on :manufacturer %>
+  <% end %>
+</div>

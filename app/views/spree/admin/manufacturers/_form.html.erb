@@ -1,0 +1,125 @@
+<div data-hook="admin_manufacturer_form_fields" class="row">
+  <div class="left twelve columns alpha" data-hook="admin_manufacturer_form_left">
+    <div data-hook="admin_manufacturer_form_name">
+      <%= f.field_container :name do %>
+        <%= f.label :name, class: 'required' %>
+        <%= f.text_field :name, :class => 'fullwidth title', :required => true %>
+        <%= f.error_message_on :name %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_slug">
+      <%= f.field_container :slug do %>
+        <%= f.label :slug, class: 'required' %>
+        <%= f.text_field :slug, :class => 'fullwidth title', :required => true %>
+        <%= f.error_message_on :slug %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_abstract">
+      <%= f.field_container :abstract do %>
+        <%= f.label :abstract %>
+        <%= f.text_area :abstract, { :rows => "5", :class => 'fullwidth' } %>
+        <%= f.error_message_on :abstract %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_description">
+      <%= f.field_container :description do %>
+        <%= f.label :description %>
+        <%= f.text_area :description, { :rows => "10", :class => 'fullwidth' } %>
+        <%= f.error_message_on :description %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_address1">
+      <%= f.field_container :address1 do %>
+        <%= f.label :address1 %>
+        <%= f.text_field :address1, { :class => 'fullwidth' } %>
+        <%= f.error_message_on :address1 %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_address2">
+      <%= f.field_container :address2 do %>
+        <%= f.label :address2 %>
+        <%= f.text_field :address2, { :class => 'fullwidth' } %>
+        <%= f.error_message_on :address2 %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_city">
+      <%= f.field_container :city do %>
+        <%= f.label :city %>
+        <%= f.text_field :city, { :class => 'fullwidth' } %>
+        <%= f.error_message_on :city %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_zipcode">
+      <%= f.field_container :zipcode do %>
+        <%= f.label :zipcode %>
+        <%= f.text_field :zipcode, { :class => 'fullwidth' } %>
+        <%= f.error_message_on :zipcode %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_country">
+        <span id="country">
+          <%= f.label :country_id, Spree::Country.model_name.human %>
+          <%= f.collection_select :country_id, available_countries, :id, :name, {}, { :class => 'select2 fullwidth' } %>
+        </span>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_state">
+      <span id="state">
+        <%= f.label :state_id, Spree::State.model_name.human %>
+        <%= f.text_field :state_name,
+                         :style => "display: #{f.object.country.states.empty? ? 'block' : 'none' };",
+                         :disabled => !f.object.country.states.empty?, :class => 'fullwidth state_name' %>
+        <%= f.collection_select :state_id, f.object.country.states.sort, :id, :name, { :include_blank => true }, { :class => 'select2 fullwidth', :style => "display: #{f.object.country.states.empty? ? 'none' : 'block' };", :disabled => f.object.country.states.empty? } %>
+      </span>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_phone">
+      <%= f.field_container :phone do %>
+        <%= f.label :phone %>
+        <%= f.phone_field :phone, { :class => 'fullwidth' } %>
+        <%= f.error_message_on :phone %>
+      <% end %>
+    </div>
+  </div>
+
+  <% content_for :head do %>
+    <%= javascript_tag do -%>
+      $(document).ready(function(){
+      $('#country .select2').on('change', function() { update_state(''); });
+      });
+    <% end -%>
+  <% end %>
+
+
+  <div data-hook="admin_manufacturer_form_meta" class="alpha omega twelve columns">
+    <div data-hook="admin_manufacturer_form_meta_title">
+      <%= f.field_container :meta_title do %>
+        <%= f.label :meta_title %>
+        <%= f.text_field :meta_title, :class => 'fullwidth' %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_meta_keywords">
+      <%= f.field_container :meta_keywords do %>
+        <%= f.label :meta_keywords %>
+        <%= f.text_field :meta_keywords, :class => 'fullwidth' %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_meta_description">
+      <%= f.field_container :meta_description do %>
+        <%= f.label :meta_description %>
+        <%= f.text_field :meta_description, :class => 'fullwidth' %>
+      <% end %>
+    </div>
+  </div>
+
+</div>
