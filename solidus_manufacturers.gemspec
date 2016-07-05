@@ -41,4 +41,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sass-rails', '~> 5.0.0'
   s.add_development_dependency 'simplecov', '~> 0.9'
   s.add_development_dependency 'guard-rspec', '>= 4.2.0'
+
+  s.post_install_message = "please run: 'rails g solidus_manufacturers:install'"
 end
