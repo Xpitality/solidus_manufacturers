@@ -2,11 +2,11 @@ it:
   spree:
     admin:
       tab:
-        manufacturers: Manufacturers
+        manufacturers: Produttori
     api:
-      resource_not_found: Resource not found
-    back_to_manufacturers_list: back to manufacturers
-    editing_manufacturer: Edit manufacturer
-    listing_manufacturers: Manufacturers
-    manufacturer_details: Manufacturer details
-    new_manufacturer: New Manufacturer
+      resource_not_found: Risorsa non trovata
+    back_to_manufacturers_list: torna ai Produttori
+    editing_manufacturer: Modifica produttori
+    listing_manufacturers: Produttori
+    manufacturer_details: Dettagli Produttore
+    new_manufacturer: Nuovo Produttore
