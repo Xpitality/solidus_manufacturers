@@ -10,9 +10,11 @@ module Spree
 
 
     has_many :images, -> { order(:position) }, class_name: 'Spree::ManufacturerImage', as: :viewable, dependent: :destroy
+    has_many :products, class_name: 'Spree::Product'
 
-    belongs_to :country, class_name: "Spree::Country"
-    belongs_to :state, class_name: "Spree::State"
+    belongs_to :country, class_name: 'Spree::Country'
+    belongs_to :state, class_name: 'Spree::State'
+
 
     validates :meta_keywords, length: { maximum: 255 }
     validates :meta_title, length: { maximum: 255 }
