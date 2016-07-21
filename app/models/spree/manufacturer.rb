@@ -57,6 +57,10 @@ module Spree
       end
     end
 
+    def display_image
+      images.first || Spree::ManufacturerImage.new
+    end
+
     private
 
     def state_validate
