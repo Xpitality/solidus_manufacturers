@@ -4,7 +4,7 @@ module Spree
     friendly_id :slug_candidates, use: :history
 
     # solidus_globalize
-    translates :name, :slug, :description, :abstract, :meta_title, :meta_description, :meta_keywords,
+    translates :name, :slug, :description, :abstract, :why_we_like_it, :meta_title, :meta_description, :meta_keywords,
                fallbacks_for_empty_translations: true
     include SolidusGlobalize::Translatable
 
@@ -60,6 +60,38 @@ module Spree
     def display_image
       images.first || Spree::ManufacturerImage.new
     end
+
+    def micro_regions
+      unless @micro_regions
+        @micro_regions = {}
+        row = 0
+        File.foreach("#{Rails.root}/db/seeds/micro_regions.csv") do |line|
+          if row == 0
+            row +=1
+          else
+            r = line.split(',')
+            country_name = r[1].gsub("\n", '')
+            @micro_regions[country_name] ||= []
+            @micro_regions[country_name] << r[0]
+          end
+        end
+      end
+
+      if self.country
+        country_name = self.country.name
+        @micro_regions[country_name].map{|r| [r, I18n.t("micro_regions.#{country_name.parameterize.underscore}.#{r}.name", default: r)] }
+
+      else
+        a = []
+        @micro_regions.each do |country_name, regions|
+          regions.each do |r|
+            a << [r, "#{country_name} > #{I18n.t("micro_regions.#{country_name.parameterize.underscore}.#{r}.name", default: r)}"]
+          end
+        end
+        a
+      end
+    end
+
 
     private
 

@@ -32,6 +32,14 @@
       <% end %>
     </div>
 
+    <div data-hook="admin_manufacturer_form_why_we_like_it">
+      <%= f.field_container :why_we_like_it do %>
+        <%= f.label :why_we_like_it %>
+        <%= f.text_area :why_we_like_it, { :rows => "5", :class => 'fullwidth' } %>
+        <%= f.error_message_on :why_we_like_it %>
+      <% end %>
+    </div>
+
     <div data-hook="admin_manufacturer_form_address1">
       <%= f.field_container :address1 do %>
         <%= f.label :address1 %>
@@ -79,6 +87,13 @@
                          :disabled => !f.object.country.states.empty?, :class => 'fullwidth state_name' %>
         <%= f.collection_select :state_id, f.object.country.states.sort, :id, :name, { :include_blank => true }, { :class => 'select2 fullwidth', :style => "display: #{f.object.country.states.empty? ? 'none' : 'block' };", :disabled => f.object.country.states.empty? } %>
       </span>
+    </div>
+
+    <div data-hook="admin_manufacturer_form_micro_region">
+        <span id="micro_region">
+          <%= f.label :micro_region %>
+          <%= f.collection_select :micro_region, f.object.micro_regions, :first, :last, {}, { :class => 'select2 fullwidth' } %>
+        </span>
     </div>
 
     <div data-hook="admin_manufacturer_form_phone">
