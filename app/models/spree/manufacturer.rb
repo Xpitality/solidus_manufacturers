@@ -77,7 +77,7 @@ module Spree
         end
       end
 
-      if self.country
+      if self.country && self.country.name && @micro_regions[self.country.name]
         country_name = self.country.name
         @micro_regions[country_name].map{|r| [r, I18n.t("micro_regions.#{country_name.parameterize.underscore}.#{r}.name", default: r)] }
 
