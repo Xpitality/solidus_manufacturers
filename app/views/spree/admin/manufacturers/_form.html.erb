@@ -75,7 +75,7 @@
     <div data-hook="admin_manufacturer_form_country">
         <span id="country">
           <%= f.label :country_id, Spree::Country.model_name.human %>
-          <%= f.collection_select :country_id, Country.all, :id, :name, {}, { :class => 'select2 fullwidth' } %>
+          <%= f.collection_select :country_id, Spree::Country.all, :id, :name, {}, { :class => 'select2 fullwidth' } %>
         </span>
     </div>
 
