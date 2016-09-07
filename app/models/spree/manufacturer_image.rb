@@ -4,6 +4,7 @@ module Spree
 
     has_attached_file :attachment,
                       styles: { mini: '48x48>', small: '100x100>', r4x3: '800x600#', r5x6: '600x720#', r13x5: '1170x450#' },
+                      s3_protocol: Rails.env.production? ? :https : :http,
                       default_style: :manufacturer,
                       default_url: 'noimage/:style.png',
                       url: '/spree/manufacturers/:id/:style/:basename.:extension',
