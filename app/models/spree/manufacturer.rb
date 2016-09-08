@@ -17,6 +17,10 @@ module Spree
 
     belongs_to :taxon, class_name: 'Spree::Taxon'
 
+    default_scope { order(position: :asc) }
+
+    acts_as_list
+
     validates :meta_keywords, length: { maximum: 255 }
     validates :meta_title, length: { maximum: 255 }
     validates :name, presence: true

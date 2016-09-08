@@ -23,6 +23,18 @@ module Spree
         end
       end
 
+      def update_positions
+        ActiveRecord::Base.transaction do
+          params[:positions].each do |id, index|
+            model_class.find(id).set_list_position(index)
+          end
+        end
+
+        respond_to do |format|
+          format.js { render text: 'Ok' }
+        end
+      end
+
       private
 
       def find_resource

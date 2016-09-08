@@ -10,20 +10,26 @@
   <% end %>
 <% end %>
 
-<table class="index" id="listing_manufacturers" data-hook>
+<table class="index sortable" id="listing_manufacturers" data-hook data-sortable-link="<%= update_positions_admin_manufacturers_url %>">
   <colgroup>
-    <col style="width: 85%">
+    <col style="width: 5%">
+    <col style="width: 80%">
     <col style="width: 15%">
   </colgroup>
   <thead>
   <tr data-hook="admin_manufacturers_index_headers">
-    <th><%= sort_link @search,:name, Spree::Manufacturer.model_name.human, {}, {:title => 'manufacturers_name'} %></th>
+    <th colspan="2"><%= sort_link @search,:name, Spree::Manufacturer.model_name.human, {}, {:title => 'manufacturers_name'} %></th>
     <th data-hook="admin_manufacturers_index_header_actions" class="actions"></th>
   </tr>
   </thead>
   <tbody>
   <% @manufacturers.each do |manufacturer|%>
     <tr id="<%= spree_dom_id manufacturer %>" data-hook="admin_manufacturers_index_rows" class="<%= cycle('odd', 'even')%>">
+      <td class="no-border">
+        <% if can?(:update_positions, Spree::Manufacturer) %>
+          <span class="handle"></span>
+        <% end %>
+      </td>
       <td class='manufacturer_name'><%=link_to manufacturer.name, edit_admin_manufacturer_url(manufacturer) %></td>
       <td data-hook="admin_manufacturers_index_row_actions" class="actions">
         <% if can?(:edit, manufacturer) %>

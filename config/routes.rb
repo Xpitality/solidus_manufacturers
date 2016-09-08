@@ -6,6 +6,9 @@ Spree::Core::Engine.add_routes do
           post :update_positions
         end
       end
+      collection do
+        post :update_positions
+      end
     end
   end
 end
