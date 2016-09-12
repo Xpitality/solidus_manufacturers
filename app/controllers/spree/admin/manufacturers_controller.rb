@@ -56,7 +56,7 @@ module Spree
 
       def manufacturer_params
         attributes = [:name, :abstract, :description, :why_we_like_it, :meta_title, :meta_description, :meta_keywords,
-                      :slug, :address1, :address2, :city, :zipcode, :country_id, :state_id, :micro_region, :phone,
+                      :slug, :address1, :address2, :city, :zipcode, :country_id, :micro_region_id, :phone,
                       address: permitted_address_attributes]
 
         params.require(:manufacturer).permit(attributes)

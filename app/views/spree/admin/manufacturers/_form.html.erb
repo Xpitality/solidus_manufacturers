@@ -79,22 +79,14 @@
         </span>
     </div>
 
-    <div data-hook="admin_manufacturer_form_state">
-      <span id="state">
-        <%= f.label :state_id, Spree::State.model_name.human %>
-        <%= f.text_field :state_name,
-                         :style => "display: #{f.object.country.states.empty? ? 'block' : 'none' };",
-                         :disabled => !f.object.country.states.empty?, :class => 'fullwidth state_name' %>
-        <%= f.collection_select :state_id, f.object.country.states.sort, :id, :name, { :include_blank => true }, { :class => 'select2 fullwidth', :style => "display: #{f.object.country.states.empty? ? 'none' : 'block' };", :disabled => f.object.country.states.empty? } %>
-      </span>
-    </div>
-
-    <div data-hook="admin_manufacturer_form_micro_region">
-        <span id="micro_region">
-          <%= f.label :micro_region %>
-          <%= f.collection_select :micro_region, f.object.micro_regions, :first, :last, {}, { :class => 'select2 fullwidth' } %>
-        </span>
-    </div>
+    <% if f.object.country %>
+      <div data-hook="admin_manufacturer_form_micro_region">
+          <span id="micro_region">
+            <%= f.label :micro_region_id %>
+            <%= f.collection_select :micro_region_id, f.object.micro_regions, :first, :last, {}, { :class => 'select2 fullwidth' } %>
+          </span>
+      </div>
+    <% end %>
 
     <div data-hook="admin_manufacturer_form_phone">
       <%= f.field_container :phone do %>
@@ -104,15 +96,6 @@
       <% end %>
     </div>
   </div>
-
-  <% content_for :head do %>
-    <%= javascript_tag do -%>
-      $(document).ready(function(){
-      $('#country .select2').on('change', function() { update_state(''); });
-      });
-    <% end -%>
-  <% end %>
-
 
   <div data-hook="admin_manufacturer_form_meta" class="alpha omega twelve columns">
     <div data-hook="admin_manufacturer_form_meta_title">
