@@ -30,15 +30,9 @@ module Spree
 
     def find_or_create_country_taxon
       country_name_it = Spree.t(self.country.iso, scope: 'country_names', default: self.country.name, locale: :it)
-      country_name_en = Spree.t(self.country.iso, scope: 'country_names', default: self.country.name, locale: :en)
 
       if self.country
-        country_taxon_translation = Spree::Taxon::Translation.where(locale: :it, permalink: "vino/nazione/#{country_name_it.parameterize}").first
-        if country_taxon_translation
-          Spree::Taxon.find(country_taxon_translation.spree_taxon_id)
-        else
-          create_country_taxon(country_name_it, country_name_en)
-        end
+        Spree::Taxon.where(permalink: "vino/nazione/#{country_name_it.parameterize}").first || create_country_taxon(country_name_it)
       end
     end
 
@@ -80,11 +74,9 @@ module Spree
       create_manufacturer_taxon if self.taxon.nil? && !self.name.blank?
     end
 
-    def create_country_taxon(country_name_it, country_name_en)
-      root_country_taxon_translation = Spree::Taxon::Translation.where(locale: :it, permalink: 'vino/nazione').first
-      if root_country_taxon_translation
-        root_country_taxon = Spree::Taxon.find(root_country_taxon_translation.spree_taxon_id)
-      else
+    def create_country_taxon(country_name_it)
+      root_country_taxon = Spree::Taxon.where(permalink: 'vino/nazione').first
+      unless root_country_taxon
         root_country_taxon = Spree::Taxon.create!(
           {
             parent_id: Spree::Taxonomy.first.root.id,
@@ -92,15 +84,15 @@ module Spree
             name: 'Nazione',
             permalink: 'vino/nazione',
             taxonomy_id: 1,
-            translations: [
-              Spree::Taxon::Translation.new({ locale: :it, name: 'Nazione', description: 'Nazione', meta_title: 'Nazione', meta_description: 'Nazione', meta_keywords: 'Nazione', permalink: 'vino/nazione' }),
-              Spree::Taxon::Translation.new({ locale: :en, name: 'Country', description: 'Country', meta_title: 'Country', meta_description: 'Country', meta_keywords: 'Country', permalink: 'wine/country' })
-            ]
+            description: 'Nazione',
+            meta_title: 'Nazione',
+            meta_description: 'Nazione',
+            meta_keywords: 'Nazione'
           })
       end
 
-      country_taxon_translation = Spree::Taxon::Translation.where(permalink: "vino/nazione/#{country_name_it.parameterize}").first
-      unless country_taxon_translation
+      country_taxon = Spree::Taxon.where(permalink: "vino/nazione/#{country_name_it.parameterize}").first
+      unless country_taxon
         Spree::Taxon.create!(
           {
             parent_id: root_country_taxon.id,
@@ -108,19 +100,17 @@ module Spree
             name: country_name_it,
             permalink: "vino/nazione/#{country_name_it.parameterize}",
             taxonomy_id: 1,
-            translations: [
-              Spree::Taxon::Translation.new({ locale: :it, name: country_name_it, description: country_name_it, meta_title: country_name_it, meta_description: country_name_it, meta_keywords: country_name_it, permalink: "vino/nazione/#{country_name_it.parameterize}" }),
-              Spree::Taxon::Translation.new({ locale: :en, name: country_name_en, description: country_name_en, meta_title: country_name_en, meta_description: country_name_en, meta_keywords: country_name_en, permalink: "wine/country/#{country_name_en.parameterize}" })
-            ]
+            description: country_name_it,
+            meta_title: country_name_it,
+            meta_description: country_name_it,
+            meta_keywords: country_name_it
           })
       end
     end
 
     def create_manufacturer_taxon
-      root_manufacturers_taxon_translation = Spree::Taxon::Translation.where(locale: :it, permalink: 'vino/produttore').first
-      if root_manufacturers_taxon_translation
-        root_manufacturers_taxon = Spree::Taxon.find(root_manufacturers_taxon_translation.spree_taxon_id)
-
+      root_manufacturers_taxon = Spree::Taxon.where(locale: :it, permalink: 'vino/produttore').first
+      if root_manufacturers_taxon
         self.taxon = Spree::Taxon.create!(
           {
             parent_id: root_manufacturers_taxon.id,
@@ -128,10 +118,10 @@ module Spree
             name: self.name,
             permalink: "vino/produttore/#{self.name.parameterize}",
             taxonomy_id: 1,
-            translations: [
-              Spree::Taxon::Translation.new({ locale: :it, name: self.name, description: self.name, meta_title: self.name, meta_description: self.name, meta_keywords: self.name, permalink: "vino/produttore/#{self.name.parameterize}" }),
-              Spree::Taxon::Translation.new({ locale: :en, name: self.name, description: self.name, meta_title: self.name, meta_description: self.name, meta_keywords: self.name, permalink: "wine/manufacturer/#{self.name.parameterize}" })
-            ]
+            description: self.name,
+            meta_title: self.name,
+            meta_description: self.name,
+            meta_keywords: self.name
           })
         self.save!
       end
