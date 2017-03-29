@@ -109,7 +109,7 @@ module Spree
     end
 
     def create_manufacturer_taxon
-      root_manufacturers_taxon = Spree::Taxon.where(locale: :it, permalink: 'vino/produttore').first
+      root_manufacturers_taxon = Spree::Taxon.where(permalink: 'vino/produttore').first
       if root_manufacturers_taxon
         self.taxon = Spree::Taxon.create!(
           {
