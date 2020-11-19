@@ -60,10 +60,7 @@ PATH
   remote: .
   specs:
     solidus_manufacturers (1.0.0)
-      deface (~> 1.0)
       i18n_data (~> 0.7.0)
-      rails-i18n (~> 4.0.1)
-      solidus_core (~> 1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -146,16 +143,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    colorize (0.8.1)
     concurrent-ruby (1.0.2)
     css_parser (1.4.5)
       addressable
     database_cleaner (1.5.3)
-    deface (1.0.2)
-      colorize (>= 0.5.8)
-      nokogiri (~> 1.6.0)
-      polyglot
-      rails (>= 3.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
     erubis (2.7.0)
@@ -252,7 +243,6 @@ GEM
       websocket-driver (>= 0.2.0)
     polyamorous (1.3.0)
       activerecord (>= 3.0)
-    polyglot (0.3.5)
     powerpack (0.1.1)
     premailer (1.8.7)
       css_parser (>= 1.4.5)
@@ -290,9 +280,6 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails-i18n (4.0.9)
-      i18n (~> 0.7)
-      railties (~> 4.0)
     railties (4.2.6)
       actionpack (= 4.2.6)
       activesupport (= 4.2.6)
@@ -392,7 +379,7 @@ GEM
       tzinfo
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.2)
+    websocket-extensions (0.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
